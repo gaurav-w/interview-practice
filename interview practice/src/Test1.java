@@ -1,3 +1,11 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
 ////employee class - use unqiue id, query
 //
 //import java.util.HashSet;
@@ -61,4 +69,28 @@
 //
 //
 public class Test1 {
+
+	public static void main(String[] args) {
+
+		 Integer array[] = new Integer[] {1,3,3,5,6,6,6,8,3,4,6,7};
+	        ArrayList<Integer> ab = new ArrayList<>();
+	        ab.add(1);
+	        ab.add(22);
+	        Integer noOf3s = (int) ab.stream()
+	                    .filter(a->a==2)
+	                    .count();
+	        
+	        Optional<Integer> noOf3s2 =  ab.stream()
+                    .reduce((a,b)->Integer.sum(a, b));
+	      
+	        System.out.println(noOf3s2);
+	        List<Integer> ab2 = Arrays.stream(array).sorted().collect(Collectors.toList());
+	        
+	        Map<Integer, Long> freq = Arrays.stream(array)
+	        							.collect(Collectors.groupingBy(Function.identity(),
+	        															Collectors.counting()));
+	        System.out.println(ab2);
+	        System.out.println(freq);
+
+	}
 }
