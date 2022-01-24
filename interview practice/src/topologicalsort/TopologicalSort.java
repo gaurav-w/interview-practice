@@ -1,4 +1,4 @@
-package topoligcalsort;
+package topologicalsort;
 
 import java.util.*;
 
