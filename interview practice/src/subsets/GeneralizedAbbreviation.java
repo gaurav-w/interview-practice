@@ -6,23 +6,20 @@ class GeneralizedAbbreviation {
 
 	public static List<String> generateGeneralizedAbbreviation(String word) {
 		List<String> result = new ArrayList<String>();
-		Queue<String> subsets = new LinkedList<>();
-		subsets.add(word);
+		result.add(word);
 
 		for (int i = 0; i < word.length(); i++) {
 
-			int n = subsets.size();
+			int n = result.size();
 			for (int j = 0; j < n; j++) {
 
-				String currentSet = subsets.poll();
+				String currentSet = result.get(j);
 				String newSet = transform(currentSet, i);
-				subsets.add(currentSet);
-				subsets.add(newSet);
+				result.add(newSet);
 			}
 
 		}
 
-		result.addAll(subsets);
 		return result;
 	}
 
@@ -30,11 +27,22 @@ class GeneralizedAbbreviation {
 		StringBuffer sb = new StringBuffer();
 		sb.append(word);
 
+//		int count = 0;
+//		for (int i = 0; i < word.length() && i < index; i++) {
+//			if (Character.isDigit(word.charAt(i)) && word.charAt(i) != '1') {
+//				count = count + word.charAt(i) - '0';
+//			}
+//		}
+
+//		index = index - count + 1;
+
 		if (word.length() > index + 1 && Character.isDigit(sb.charAt(index + 1))) {
 			int no = sb.charAt(index + 1) - '0';
 			++no;
 			sb.replace(index, index + 2, String.valueOf(no));
-		} else if (index - 1 >= 0 && Character.isDigit(sb.charAt(index - 1))) {
+		}
+
+		if (index - 1 >= 0 && Character.isDigit(sb.charAt(index - 1))) {
 			int no = sb.charAt(index - 1) - '0';
 			++no;
 			sb.replace(index - 1, index + 1, String.valueOf(no));
