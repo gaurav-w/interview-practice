@@ -1,7 +1,7 @@
 package babbar.recursion;
 
 public class IncreasingDecreasing {
-
+	
 	/*
 	 * Head Recursion - Increasing
 	 */
@@ -27,6 +27,7 @@ public class IncreasingDecreasing {
 
 	}
 
+	
 	public static void f(int n) {
 		fInc(n);
 		fDec(n);
