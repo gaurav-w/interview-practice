@@ -1,5 +1,11 @@
 package babbar.recursion;
 
+/**
+ * Print decreasing numbers and then increasing numbers using recursion
+ * 
+ * @author gaura
+ *
+ */
 public class DecreasingIncreasing {
 
 	public static void f(int n) {

@@ -1,5 +1,11 @@
 package babbar.recursion;
 
+/**
+ * Find max in an array using recursion
+ * 
+ * @author gaura
+ *
+ */
 public class FindMaxInArray {
 
 	public static void main(String[] args) {

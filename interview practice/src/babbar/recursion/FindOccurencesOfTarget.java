@@ -2,6 +2,12 @@ package babbar.recursion;
 
 import java.util.ArrayList;
 
+/**
+ * Find first,last, all occurences of a number using recursion
+ * 
+ * @author gaura
+ *
+ */
 public class FindOccurencesOfTarget {
 	public static void main(String[] args) {
 		int arr[] = { 45, 23, 65, 31, 64, 31 };
