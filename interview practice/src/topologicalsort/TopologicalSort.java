@@ -4,66 +4,116 @@ import java.util.*;
 
 class TopologicalSort {
 
-  /**
-  1. create hashmap for adjacency list
-  2. create hasmap of indegree
-  3. iterate hashmap of indegree for sources - indegreee 0 and push them into queue.
-  4. while is not empty
-    5. pop the element from queue - add to list
-    6. reduce the indegree of itd children by 1 in hashmap
-    7. if indegree of elemtn is 0 add it to queue
-  8. if count != no of vertices - it is not a DAG
-  */
+	/**
+	 * 1. create hashmap for adjacency list 2. create hasmap of indegree 3. iterate
+	 * hashmap of indegree for sources - indegreee 0 and push them into queue. 4.
+	 * while is not empty 5. pop the element from queue - add to list 6. reduce the
+	 * indegree of itd children by 1 in hashmap 7. if indegree of elemtn is 0 add it
+	 * to queue 8. if count != no of vertices - it is not a DAG
+	 */
+//	public static List<Integer> sort(int vertices, int[][] edges) {
+//		List<Integer> sortedOrder = new ArrayList<>();
+//		HashMap<Integer, ArrayList<Integer>> adjancencyList = new HashMap<>();
+//		HashMap<Integer, Integer> indegree = new HashMap<>();
+//		Queue<Integer> queue = new LinkedList<>();
+//
+//		for (int i = 0; i < vertices; i++) {
+//			adjancencyList.put(i, new ArrayList<Integer>());
+//			indegree.put(i, 0);
+//		}
+//
+//		for (int i = 0; i < edges.length; i++) {
+//			int source = edges[i][0];
+//			int end = edges[i][1];
+//
+//			ArrayList<Integer> listSource = adjancencyList.get(source);
+//			listSource.add(end);
+//			adjancencyList.put(source, listSource);
+//		}
+//
+//		for (Map.Entry<Integer, ArrayList<Integer>> entry : adjancencyList.entrySet()) {
+//			int source = entry.getKey();
+//			List<Integer> list = entry.getValue();
+//
+//			for (int vertex : list)
+//				indegree.put(vertex, indegree.get(vertex) + 1);
+//		}
+//
+//		for (Map.Entry<Integer, Integer> entry : indegree.entrySet()) {
+//			int value = entry.getValue();
+//			if (value == 0)
+//				queue.add(entry.getKey());
+//		}
+//
+//		int count = 0;
+//		while (!queue.isEmpty()) {
+//			int source = queue.remove();
+//			sortedOrder.add(source);
+//			count++;
+//			List<Integer> children = adjancencyList.get(source);
+//
+//			for (int child : children) {
+//				indegree.put(child, indegree.get(child) - 1);
+//
+//				if (indegree.get(child) == 0)
+//					queue.add(child);
+//			}
+//		}
+//
+//		if (count != vertices)
+//			System.out.println("not a DAG");
+//
+//		return sortedOrder;
+//	}
+
 	public static List<Integer> sort(int vertices, int[][] edges) {
 		List<Integer> sortedOrder = new ArrayList<>();
-		HashMap<Integer, ArrayList<Integer>> adjancencyList = new HashMap<>();
-		HashMap<Integer, Integer> indegree = new HashMap<>();
+		HashMap<Integer, Integer> indegreeCount = new HashMap<>();
+		HashMap<Integer, List<Integer>> adjancencyList = new HashMap<>();
 		Queue<Integer> queue = new LinkedList<>();
-		
-		for (int i = 0; i < vertices; i++) {
-			adjancencyList.put(i, new ArrayList<Integer>());
-			indegree.put(i, 0);
-		}
-		
-		for (int i = 0; i < edges.length; i++) {
-			int source = edges[i][0];
-			int end = edges[i][1];
 
-			ArrayList<Integer> listSource = adjancencyList.get(source);
-			listSource.add(end);
-			adjancencyList.put(source, listSource);
-		}
+		// create adjacency list & indegree count
+		for (int index = 0; index < edges.length; index++) {
 
-		for (Map.Entry<Integer, ArrayList<Integer>> entry : adjancencyList.entrySet()) {
-			int source = entry.getKey();
-			List<Integer> list = entry.getValue();
+			int source = edges[index][0];
+			int destination = edges[index][1];
 
-			for (int vertex : list)
-				indegree.put(vertex, indegree.get(vertex) + 1);
+			if (adjancencyList.get(source) == null)
+				adjancencyList.put(source, new ArrayList<Integer>());
+
+			if (adjancencyList.get(destination) == null)
+				adjancencyList.put(destination, new ArrayList<Integer>());
+
+			List<Integer> list = adjancencyList.get(source);
+			list.add(destination);
+
+			indegreeCount.put(source, indegreeCount.getOrDefault(source, 0));
+			indegreeCount.put(destination, indegreeCount.getOrDefault(destination, 0) + 1);
 		}
 
-		for (Map.Entry<Integer, Integer> entry : indegree.entrySet()) {
-			int value = entry.getValue();
-			if (value == 0)
+		// enqueue the indegree 0 to queue
+		for (Map.Entry<Integer, Integer> entry : indegreeCount.entrySet()) {
+			if (entry.getValue() == 0)
 				queue.add(entry.getKey());
 		}
 
-		int count = 0;
 		while (!queue.isEmpty()) {
-			int source = queue.remove();
-			sortedOrder.add(source);
-			count++;
-			List<Integer> children = adjancencyList.get(source);
 
-			for (int child : children) {
-				indegree.put(child, indegree.get(child) - 1);
+			Integer popped = queue.remove();
+			sortedOrder.add(popped);
 
-				if (indegree.get(child) == 0)
-					queue.add(child);
+			List<Integer> adjList = adjancencyList.get(popped);
+
+			for (int num : adjList) {
+				indegreeCount.put(num, indegreeCount.get(num) - 1);
+
+				if (indegreeCount.get(num) == 0)
+					queue.add(num);
 			}
+
 		}
 
-		if (count != vertices)
+		if (sortedOrder.size() != vertices)
 			System.out.println("not a DAG");
 
 		return sortedOrder;

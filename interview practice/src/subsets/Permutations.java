@@ -8,14 +8,14 @@ class Permutations {
 		List<List<Integer>> result = new ArrayList<>();
 		Queue<List<Integer>> permutations = new LinkedList<>();
 		permutations.add(new ArrayList<>());
-		for (int currentNumber : nums) {
+		for (int currentNumber : nums) { // each no
 			// we will take all existing permutations and add the current number to create
 			// new permutations
 			int n = permutations.size();
-			for (int i = 0; i < n; i++) {
+			for (int i = 0; i < n; i++) { // each set
 				List<Integer> oldPermutation = permutations.poll();
 				// create a new permutation by adding the current number at every position
-				for (int j = 0; j <= oldPermutation.size(); j++) {
+				for (int j = 0; j <= oldPermutation.size(); j++) { // each position
 					List<Integer> newPermutation = new ArrayList<Integer>(oldPermutation);
 					newPermutation.add(j, currentNumber);
 					if (newPermutation.size() == nums.length)
@@ -26,6 +26,36 @@ class Permutations {
 			}
 		}
 		return result;
+	}
+
+	public static List<List<Integer>> findPermutations2(int[] nums) {
+		List<List<Integer>> result = new ArrayList<>();
+		Queue<List<Integer>> q = new LinkedList<>();
+		q.add(new ArrayList<>());
+
+		for (int numIndex = 0; numIndex < nums.length; numIndex++) { //for every no
+			int size = q.size();
+
+			for (int setNo = 0; setNo < size; setNo++) { //for every set
+				List<Integer> currentSet = q.remove();
+
+				for (int pos = 0; pos <= currentSet.size(); pos++) { //for each position of set
+					ArrayList<Integer> newSet = new ArrayList<>(currentSet);
+					newSet.add(pos, nums[numIndex]);
+
+					if (newSet.size() == nums.length)
+						result.add(newSet);
+					else
+						q.add(newSet);
+
+					System.out.println(newSet);
+				}
+
+			}
+		}
+
+		return result;
+
 	}
 
 	public static List<List<Integer>> generatePermutations(int[] nums) {
@@ -44,10 +74,11 @@ class Permutations {
 				List<Integer> newPermutation = new ArrayList<Integer>(currentPermutation);
 				System.out.println("currentPermutation=" + currentPermutation);
 				newPermutation.add(i, nums[index]);
-				System.out.println("i=" + i + " index = " + index + " nums[index]=" + nums[index] + " newPermutation=" + newPermutation);
+				System.out.println("i=" + i + " index = " + index + " nums[index]=" + nums[index] + " newPermutation="
+						+ newPermutation);
 				System.out.println("");
 				generatePermutationsRecursive(nums, index + 1, newPermutation, result);
-				
+
 			}
 		}
 	}
@@ -55,7 +86,7 @@ class Permutations {
 	public static void main(String[] args) {
 		// List<List<Integer>> result = Permutations.findPermutations(new int[] { 1, 3,
 		// 5 });
-		List<List<Integer>> result = Permutations.generatePermutations(new int[] { 1, 3, 5 });
+		List<List<Integer>> result = Permutations.findPermutations2(new int[] { 1, 3, 5 });
 		System.out.print("Here are all the permutations: " + result);
 	}
 }

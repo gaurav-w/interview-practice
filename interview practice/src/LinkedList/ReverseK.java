@@ -1,6 +1,27 @@
 package LinkedList;
 
 public class ReverseK {
+
+	static LinkedListNode reverseKNodes2(LinkedListNode head, int k) {
+
+		LinkedListNode current, prev = null, next = null;
+		current = head;
+		int count = 0;
+
+		while (current != null && count < k) {
+			next = current.next;
+			current.next = prev;
+			prev = current;
+			current = next;
+			count++;
+		}
+		if (next != null)
+			head.next = reverseKNodes2(next, k);
+
+		return prev;
+
+	}
+
 	/*
 	 * 1. start and end of n list 2. reverse them. 3. start.next = temp; 4.
 	 * previousBlockEnd.next = end; 5. previousBlockEnd = start;
@@ -8,7 +29,8 @@ public class ReverseK {
 	static LinkedListNode reverseKNodes(LinkedListNode head, int k) {
 
 		LinkedListNode node = head;
-		LinkedListNode startOfBlock = null, endOfBlock = null, previousBlockEnd = null, nextNode=null, previous =null;
+		LinkedListNode startOfBlock = null, endOfBlock = null, previousBlockEnd = null, nextNode = null,
+				previous = null;
 		int first = 1;
 
 		if (k <= 0)
@@ -25,18 +47,18 @@ public class ReverseK {
 				}
 				previous = node;
 				node = node.next;
-				
+
 				currentK++;
 			}
-			
-			if(node!=null) {
+
+			if (node != null) {
 				endOfBlock = node;
 				nextNode = node.next;
 			} else {
 				endOfBlock = previous;
 				nextNode = previous.next;
 			}
-			
+
 			// reverse
 			reverseList(startOfBlock, endOfBlock);
 
@@ -46,13 +68,12 @@ public class ReverseK {
 				previousBlockEnd.next = endOfBlock;
 
 			previousBlockEnd = startOfBlock;
-			
 
 			if (first == 1) {
 				head = endOfBlock;
 				first = 0;
 			}
-			
+
 			node = nextNode;
 		}
 
@@ -79,7 +100,7 @@ public class ReverseK {
 		System.out.print("Original list: ");
 		LinkedListNode.display(listHead);
 
-		listHead = reverseKNodes(listHead, 4);
+		listHead = reverseKNodes2(listHead, 4);
 		System.out.print("List reversed by 4: ");
 		LinkedListNode.display(listHead);
 	}
