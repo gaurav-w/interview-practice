@@ -1,4 +1,4 @@
-package babbar.recursion;
+package babbar.recursion.arrays;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package babbar.recursion;
+package babbar.recursion.arrays;
 
 /**
  * Increasing Decreasing

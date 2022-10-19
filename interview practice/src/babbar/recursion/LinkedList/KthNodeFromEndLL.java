@@ -1,18 +1,10 @@
-package babbar.recursion;
+package babbar.recursion.LinkedList;
 
 /**
  * 
  * @author gaura
  *
  */
-class LL {
-	int data;
-	LL next;
-
-	LL(int d) {
-		this.data = d;
-	}
-}
 
 public class KthNodeFromEndLL {
 

@@ -1,4 +1,4 @@
-package babbar.recursion;
+package babbar.recursion.arrays;
 
 /**
  * Print decreasing numbers and then increasing numbers using recursion

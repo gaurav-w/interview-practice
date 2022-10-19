@@ -1,4 +1,4 @@
-package babbar.recursion;
+package babbar.recursion.arrays;
 
 /**
  * Find max in an array using recursion
