@@ -6,7 +6,7 @@ package babbar.recursion.LinkedList;
  *
  */
 
-public class reverseLL{
+public class reverseLL {
 
 	public static void main(String[] args) {
 		LL a = new LL(1);
@@ -17,25 +17,16 @@ public class reverseLL{
 		a.next = b;
 		b.next = c;
 		c.next = d;
-		traverse(a);
+		LL.traverse(a);
 
 		System.out.println();
 		LL newhead = reverseLL(a);
-		traverse(newhead);
+		LL.traverse(newhead);
 
 		System.out.println();
 		LL newhead2 = nonrecursiveReverse(newhead);
-		traverse(newhead2);
-		// KthNodeFromEndLLRecursion2(a, 3);
+		LL.traverse(newhead2);
 
-	}
-
-	static void traverse(LL head) {
-
-		while (head != null) {
-			System.out.print(head.data + " -> ");
-			head = head.next;
-		}
 	}
 
 	/**

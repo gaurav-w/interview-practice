@@ -7,4 +7,13 @@ public class LL {
 	public LL(int d) {
 		this.data = d;
 	}
+
+	static void traverse(LL head) {
+
+		while (head != null) {
+			System.out.print(head.data + " -> ");
+			head = head.next;
+		}
+		System.out.println("");
+	}
 }
